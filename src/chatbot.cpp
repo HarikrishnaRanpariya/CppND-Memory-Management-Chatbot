@@ -11,16 +11,18 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
+    std::cout << "??ChatBot Constructor" << std::endl;
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    std::cout << ">>ChatBot Constructor" << std::endl;
 }
 
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor" << std::endl;
+    std::cout << "**ChatBot Constructor" << std::endl;
     
     // invalidate data handles
     _chatLogic = nullptr;
@@ -28,18 +30,22 @@ ChatBot::ChatBot(std::string filename)
 
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+    std::cout << "##ChatBot Constructor" << _image<< std::endl;
 }
 
 ChatBot::~ChatBot()
 {
-    std::cout << "ChatBot Destructor" << std::endl;
+    std::cout << "#ChatBot Destructor" << std::endl;
 
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
     {
+        std::cout << "1#ChatBot Destructor" << _image<< std::endl;
         delete _image;
+        std::cout << "2#ChatBot Destructor" << std::endl;
         _image = NULL;
     }
+    std::cout << "*ChatBot Destructor" << std::endl;
 }
 
 //// STUDENT CODE
@@ -50,6 +56,7 @@ ChatBot::~ChatBot()
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {
+      std::cout << "Enter ReceiveMessageFromUser" << std::endl;
     // loop over all edges and keywords and compute Levenshtein distance to query
     typedef std::pair<GraphEdge *, int> EdgeDist;
     std::vector<EdgeDist> levDists; // format is <ptr,levDist>
@@ -84,6 +91,7 @@ void ChatBot::ReceiveMessageFromUser(std::string message)
 
 void ChatBot::SetCurrentNode(GraphNode *node)
 {
+  std::cout << "Enter SetCurrentNode" << std::endl;
     // update pointer to current node
     _currentNode = node;
 
@@ -99,6 +107,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
 
 int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)
 {
+   std::cout << "Enter ComputeLevenshteinDistance" << std::endl;
     // convert both strings to upper-case before comparing
     std::transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
     std::transform(s2.begin(), s2.end(), s2.begin(), ::toupper);

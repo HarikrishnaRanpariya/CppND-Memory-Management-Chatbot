@@ -16,13 +16,13 @@ ChatLogic::ChatLogic()
 {
     //// STUDENT CODE
     ////
-
+      std::cout << "??ChatLogic Constructor" << std::endl;
     // create instance of chatbot
     _chatBot = new ChatBot("../images/chatbot.png");
 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     _chatBot->SetChatLogicHandle(this);
-
+    std::cout << ">>ChatLogic Constructor" << std::endl;
     ////
     //// EOF STUDENT CODE
 }
@@ -32,6 +32,7 @@ ChatLogic::~ChatLogic()
     //// STUDENT CODE
     ////
 
+    std::cout << "##ChatLogic Destructor" << std::endl;
     // delete chatbot instance
     delete _chatBot;
 
@@ -46,7 +47,7 @@ ChatLogic::~ChatLogic()
     {
         delete *it;
     }
-
+    std::cout << "*ChatLogic Destructor" << std::endl;
     ////
     //// EOF STUDENT CODE
 }
@@ -54,6 +55,7 @@ ChatLogic::~ChatLogic()
 template <typename T>
 void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T &element)
 {
+     std::cout << "Enter ChatLogic::AddAllTokensToElement" << std::endl;
     // find all occurences for current node
     auto token = tokens.begin();
     while (true)
@@ -73,6 +75,7 @@ void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T 
 
 void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 {
+     std::cout << "Enter ChatLogic::LoadAnswerGraphFromFile" << std::endl;
     // load file with answer graph elements
     std::ifstream file(filename);
 
@@ -131,7 +134,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
                         // create new element if ID does not yet exist
                         if (newNode == _nodes.end())
-                        {
+                        { std::cout << "create new Graph node"<<std::endl;
                             _nodes.emplace_back(new GraphNode(id));
                             newNode = _nodes.end() - 1; // get iterator to last element
 
@@ -203,7 +206,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         // search for nodes which have no incoming edges
         if ((*it)->GetNumberOfParents() == 0)
         {
-
             if (rootNode == nullptr)
             {
                 rootNode = *it; // assign current node to root
@@ -218,32 +220,37 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     // add chatbot to graph root node
     _chatBot->SetRootNode(rootNode);
     rootNode->MoveChatbotHere(_chatBot);
-    
+    std::cout << "Enter ChatLogic::LoadAnswerGraphFromFile" << std::endl;
     ////
     //// EOF STUDENT CODE
 }
 
 void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog *panelDialog)
 {
+     std::cout << "Enter ChatLogic::SetPanelDialogHandle" << std::endl;
     _panelDialog = panelDialog;
 }
 
 void ChatLogic::SetChatbotHandle(ChatBot *chatbot)
 {
+     std::cout << "Enter ChatLogic::SetChatbotHandle" << std::endl;
     _chatBot = chatbot;
 }
 
 void ChatLogic::SendMessageToChatbot(std::string message)
 {
+     std::cout << "Enter ChatLogic::SendMessageToChatbot" << std::endl;
     _chatBot->ReceiveMessageFromUser(message);
 }
 
 void ChatLogic::SendMessageToUser(std::string message)
 {
+     std::cout << "Enter ChatLogic::SendMessageToUser" << std::endl;
     _panelDialog->PrintChatbotResponse(message);
 }
 
 wxBitmap *ChatLogic::GetImageFromChatbot()
 {
+     std::cout << "Enter *ChatLogic::GetImageFromChatbot" << std::endl;
     return _chatBot->GetImageHandle();
 }
